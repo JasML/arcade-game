@@ -166,7 +166,7 @@ var Engine = (function(global) {
         allEnemies.forEach(function(enemy) {
             if (Math.abs(xPlayer - enemy.x) < minXDist && Math.abs(yPlayer - enemy.y) < minYDist) {
                 console.log("Collision!");
-                render();
+                reset();
             }
         });
     }
@@ -176,7 +176,14 @@ var Engine = (function(global) {
      * those sorts of things. It's only called once by the init() method.
      */
     function reset() {
-        // noop
+        player.x = playerInitX;
+        player.y = playerInitY;
+
+        for (i = 0; i < enemyInitX.length; i++) {
+            allEnemies[i].x = enemyInitX[i];
+        }
+
+        renderEntities();
     }
 
     /* Go ahead and load all of the images we know we're going to need to

@@ -75,11 +75,19 @@ Player.prototype.handleInput = function(key) {
 // Place the player object in a variable called player
 
 // Create instance of player
-var player = new Player(101*2,83*5);
+var playerInitX = 101 * 2;
+var playerInitY = 83 * 5;
+var player = new Player(playerInitX,playerInitY);
 
 // Create instances of enemies as an array
-var allEnemies = [new Enemy(0,83,20), new Enemy(0,2*83,50), new Enemy(0,3*83,10),
-    new Enemy(-101*5,83,15), new Enemy(-101*5,2*83,25), new Enemy(-101*5,3*83,30)];
+var enemyInitX = [0, 0, 0, -101*5, -101*5, -101*5];
+var enemyInitY = [83, 2*83, 3*83];
+var enemySpeed = [20, 50, 40, 35, 25, 30];
+
+var allEnemies = [];
+for (i = 0; i < enemyInitX.length; i++) {
+    allEnemies[i] = new Enemy(enemyInitX[i],enemyInitY[i],enemySpeed[i]);
+}
 
 console.log(Math.floor((Math.random() * 100) + 1));
 
