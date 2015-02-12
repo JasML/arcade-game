@@ -179,8 +179,12 @@ var Engine = (function(global) {
         player.x = playerInitX;
         player.y = playerInitY;
 
-        for (i = 0; i < enemyInitX.length; i++) {
-            allEnemies[i].x = enemyInitX[i];
+        // for (i = 0; i < enemyInitX.length; i++) {
+        //     allEnemies[i].x = enemyInitX[i];
+        // }
+
+        for (i = 0; i < nEnemies; i++) {
+            allEnemies[i].x = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
         }
 
         renderEntities();

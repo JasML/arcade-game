@@ -20,7 +20,8 @@ Enemy.prototype.update = function(dt) {
     this.x = this.x + this.speed * dt;
 
     if (this.x > 101 * 6) {
-        this.x = -101 * 5;
+        this.x = -101;
+        this.speed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
     }
 }
 
@@ -80,16 +81,29 @@ var playerInitY = 83 * 5;
 var player = new Player(playerInitX,playerInitY);
 
 // Create instances of enemies as an array
-var enemyInitX = [0, 0, 0, -101*5, -101*5, -101*5];
-var enemyInitY = [83, 2*83, 3*83];
-var enemySpeed = [20, 50, 40, 35, 25, 30];
-
+// For the first level of the game, start with a total of 6 enemies
+var nEnemies = 3;
 var allEnemies = [];
-for (i = 0; i < enemyInitX.length; i++) {
-    allEnemies[i] = new Enemy(enemyInitX[i],enemyInitY[i],enemySpeed[i]);
+var enemyInitXmin = -101 * 3;
+var enemyInitXmax = 0;
+var enemySpeedMin = 100;
+var enemySpeedMax = 400;
+for (i = 0; i < nEnemies; i++) {
+    var enemyX = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
+    var enemyY = (i % 3 + 1) * 83;
+    var enemySpeed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
+    allEnemies[i] = new Enemy(enemyX,enemyY,enemySpeed);
+    console.log(enemyY);
 }
 
-console.log(Math.floor((Math.random() * 100) + 1));
+// var enemyInitX = [0, 0, 0, -101*5, -101*5, -101*5];
+// var enemyInitY = [83, 2*83, 3*83];
+// var enemySpeed = [20, 50, 40, 35, 25, 30];
+
+// var allEnemies = [];
+// for (i = 0; i < enemyInitX.length; i++) {
+//     allEnemies[i] = new Enemy(enemyInitX[i],enemyInitY[i],enemySpeed[i]);
+// }
 
 
 // This listens for key presses and sends the keys to your
