@@ -19,8 +19,8 @@ Enemy.prototype.update = function(dt) {
     // all computers.
     this.x = this.x + this.speed * dt;
 
-    if (this.x > 101 * 6) {
-        this.x = -101;
+    if (this.x > blkWidth * 6) {
+        this.x = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
         this.speed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
     }
 }
@@ -50,23 +50,24 @@ Player.prototype.render = function() {
 }
 
 Player.prototype.handleInput = function(key) {
-    // Update either x or y position of player per keypad input, with limits so
-    // that player does not disappear from the canvas
+    // Update either x or y position of player per keypad input, with limits
+    // so that player does not disappear from the canvas.  If movement results
+    // in a discrete movement of a single block, so the dt is not used.
     if (key == 'up') {
         if (this.y > 0) {
-            this.y = this.y - 83;
+            this.y = this.y - blkHeight;
         }
     } else if (key == 'down') {
-        if (this.y < 83 * 5) {
-            this.y = this.y + 83;
+        if (this.y < blkHeight * 5) {
+            this.y = this.y + blkHeight;
         }
     } else if (key == 'left') {
         if (this.x > 0) {
-            this.x = this.x - 101;
+            this.x = this.x - blkWidth;
         }
     } else if (key == 'right') {
-        if (this.x < 101 * 4) {
-            this.x = this.x + 101;
+        if (this.x < blkWidth * 4) {
+            this.x = this.x + blkWidth;
         }
     }
 }
@@ -76,35 +77,29 @@ Player.prototype.handleInput = function(key) {
 // Place the player object in a variable called player
 
 // Create instance of player
-var playerInitX = 101 * 2;
-var playerInitY = 83 * 5;
+var playerInitX = blkWidth * 2;
+var playerInitY = blkHeight * 5;
 var player = new Player(playerInitX,playerInitY);
 
-// Create instances of enemies as an array
-// For the first level of the game, start with a total of 6 enemies
-var nEnemies = 3;
+// Create instances of enemies as an array. For the first level of the game,
+// start with a total of 6 enemies (2 on each of the 3 applicable lanes). The 
+// initial x-position of each enemy is determined randomly between 1 and 9 
+// block-widths to the left of the screen (the value of 9 was determined by
+// testing various values and finding a value that resulted in reasonably smooth
+// movement across the screen (instead of disctint clumps of enemies)
+var nEnemies = 6;
 var allEnemies = [];
-var enemyInitXmin = -101 * 3;
-var enemyInitXmax = 0;
-var enemySpeedMin = 100;
+var enemyInitXmin = -blkWidth * 9;
+var enemyInitXmax = -blkWidth;
+var enemySpeedMin = 200;
 var enemySpeedMax = 400;
 for (i = 0; i < nEnemies; i++) {
     var enemyX = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
-    var enemyY = (i % 3 + 1) * 83;
+    var enemyY = (i % 3 + 1) * blkHeight;
     var enemySpeed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
     allEnemies[i] = new Enemy(enemyX,enemyY,enemySpeed);
-    console.log(enemyY);
+    console.log(enemyX);
 }
-
-// var enemyInitX = [0, 0, 0, -101*5, -101*5, -101*5];
-// var enemyInitY = [83, 2*83, 3*83];
-// var enemySpeed = [20, 50, 40, 35, 25, 30];
-
-// var allEnemies = [];
-// for (i = 0; i < enemyInitX.length; i++) {
-//     allEnemies[i] = new Enemy(enemyInitX[i],enemyInitY[i],enemySpeed[i]);
-// }
-
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.

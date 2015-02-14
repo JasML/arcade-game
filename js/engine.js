@@ -25,8 +25,8 @@ var Engine = (function(global) {
         ctx = canvas.getContext('2d'),
         lastTime;
 
-    canvas.width = 505;
-    canvas.height = 606;
+    canvas.width = cWidth;
+    canvas.height = cHeight;
     doc.body.appendChild(canvas);
 
     /* This function serves as the kickoff point for the game loop itself
@@ -115,8 +115,8 @@ var Engine = (function(global) {
                 'images/grass-block.png',   // Row 1 of 2 of grass
                 'images/grass-block.png'    // Row 2 of 2 of grass
             ],
-            numRows = 6,
-            numCols = 5,
+            numRows = nBlkRows,
+            numCols = nBlkCols,
             row, col;
 
         /* Loop through the number of rows and columns we've defined above
@@ -132,7 +132,7 @@ var Engine = (function(global) {
                  * so that we get the benefits of caching these images, since
                  * we're using them over and over.
                  */
-                ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
+                ctx.drawImage(Resources.get(rowImages[row]), col * blkWidth, row * blkHeight);
             }
         }
 
@@ -157,15 +157,14 @@ var Engine = (function(global) {
 
     function checkCollisions() {
         /* Find minimum X distance between player and enemy. If minimum distance is
-        small enough, consider it to be a collision */
-        var minXDist = 0.8*101;
-        var minYDist = 83;
+        small enough, consider it to be a collision. */
+        var minXDist = 0.8*blkWidth;
+        var minYDist = blkHeight;
 
         var xPlayer = player.x;
         var yPlayer = player.y;
         allEnemies.forEach(function(enemy) {
             if (Math.abs(xPlayer - enemy.x) < minXDist && Math.abs(yPlayer - enemy.y) < minYDist) {
-                console.log("Collision!");
                 reset();
             }
         });
