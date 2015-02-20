@@ -33,10 +33,9 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x,y,charImg) {
-    // this.sprite = 'images/char-boy.png';
-    this.sprite = charImg;
-    // TODO: make character image selectable
+var Player = function(x,y) {
+    // Default image to cat-girl character
+    this.sprite = 'images/char-cat-girl.png';
     this.x = x;
     this.y = y;
 }
@@ -44,6 +43,40 @@ var Player = function(x,y,charImg) {
 Player.prototype.update = function(dt) {
 
 }
+
+// Add function for changing the player image
+Player.prototype.newPlayer = function() {
+    var currentImg = document.getElementById("playerSelect").options[document.getElementById("playerSelect").selectedIndex].value;
+    if (currentImg=="boy") {
+        console.log("In the boy loop!")
+        this.sprite = 'images/char-boy.png';
+    } else if (currentImg=="cat") {
+        this.sprite = 'images/char-cat-girl.png';
+    } else if (currentImg=="horn-girl") {
+        this.sprite = 'images/char-horn-girl.png';
+    } else if (currentImg=="pink-girl") {
+        this.sprite = 'images/char-pink-girl.png';
+    } else if (currentImg=="princess") {
+        this.sprite = 'images/char-princess-girl.png';
+    }
+}
+
+// function newPlayer() {
+//     var player = document.getElementById("playerSelect").options[document.getElementById("playerSelect").selectedIndex].value;
+//     if (player=="boy") {
+//         console.log("In the boy loop!")
+//     } else if (player=="cat") {
+//         console.log("In the cat loop!")
+//     } else if (player=="horn-girl") {
+//         console.log("In the horn-girl loop!")
+//     } else if (player=="pink-girl") {
+//         console.log("In the pink-girl loop!")
+//     } else if (player=="princess") {
+//         console.log("In the princess loop!")
+//     }
+// }
+
+
 
 // Draw the player on the screen
 Player.prototype.render = function() {

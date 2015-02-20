@@ -32,9 +32,9 @@
     		<p> Select a Player Icon </p>
     	</div>
     	<div class="col-md-3">
-    		<select id="playerSelect" onChange="newPlayer(this);">
+    		<select id="playerSelect" onChange="player.newPlayer();">
+    			<option value="cat">Cat</option>
   				<option value="boy">Boy</option>
-  				<option value="cat">Cat</option>
   				<option value="horn-girl">Horn Girl</option>
   				<option value="pink-girl">Pink Girl</option>
   				<option value="princess">Princess</option>
@@ -44,20 +44,20 @@
     </div>
     <script>
     	/* Create function for button press to select new player */
-    	function newPlayer() {
-      		var player = document.getElementById("playerSelect").options[document.getElementById("playerSelect").selectedIndex].value;
-      		if (player=="boy") {
-      			console.log("In the boy loop!")
-      		} else if (player=="cat") {
-      			console.log("In the cat loop!")
-      		} else if (player=="horn-girl") {
-      			console.log("In the horn-girl loop!")
-      		} else if (player=="pink-girl") {
-      			console.log("In the pink-girl loop!")
-      		} else if (player=="princess") {
-      			console.log("In the princess loop!")
-      		}
-    	}
+    	// function newPlayer() {
+     //  		var player = document.getElementById("playerSelect").options[document.getElementById("playerSelect").selectedIndex].value;
+     //  		if (player=="boy") {
+     //  			console.log("In the boy loop!")
+     //  		} else if (player=="cat") {
+     //  			console.log("In the cat loop!")
+     //  		} else if (player=="horn-girl") {
+     //  			console.log("In the horn-girl loop!")
+     //  		} else if (player=="pink-girl") {
+     //  			console.log("In the pink-girl loop!")
+     //  		} else if (player=="princess") {
+     //  			console.log("In the princess loop!")
+     //  		}
+    	// }
     	// document.querySelector('select').addEventListener('onChange', selectPlayer, false);
     </script>
 </body>
