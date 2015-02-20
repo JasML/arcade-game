@@ -33,8 +33,9 @@ Enemy.prototype.render = function() {
 // Now write your own player class
 // This class requires an update(), render() and
 // a handleInput() method.
-var Player = function(x,y) {
-    this.sprite = 'images/char-boy.png';
+var Player = function(x,y,charImg) {
+    // this.sprite = 'images/char-boy.png';
+    this.sprite = charImg;
     // TODO: make character image selectable
     this.x = x;
     this.y = y;
@@ -79,7 +80,7 @@ Player.prototype.handleInput = function(key) {
 // Create instance of player
 var playerInitX = blkWidth * 2;
 var playerInitY = blkHeight * 5;
-var player = new Player(playerInitX,playerInitY);
+var player = new Player(playerInitX,playerInitY,charImg);
 
 // Create instances of enemies as an array. For the first level of the game,
 // start with a total of 6 enemies (2 on each of the 3 applicable lanes). The 
