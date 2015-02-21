@@ -48,7 +48,6 @@ Player.prototype.update = function(dt) {
 Player.prototype.newPlayer = function() {
     var currentImg = document.getElementById("playerSelect").options[document.getElementById("playerSelect").selectedIndex].value;
     if (currentImg=="boy") {
-        console.log("In the boy loop!")
         this.sprite = 'images/char-boy.png';
     } else if (currentImg=="cat") {
         this.sprite = 'images/char-cat-girl.png';
@@ -60,23 +59,6 @@ Player.prototype.newPlayer = function() {
         this.sprite = 'images/char-princess-girl.png';
     }
 }
-
-// function newPlayer() {
-//     var player = document.getElementById("playerSelect").options[document.getElementById("playerSelect").selectedIndex].value;
-//     if (player=="boy") {
-//         console.log("In the boy loop!")
-//     } else if (player=="cat") {
-//         console.log("In the cat loop!")
-//     } else if (player=="horn-girl") {
-//         console.log("In the horn-girl loop!")
-//     } else if (player=="pink-girl") {
-//         console.log("In the pink-girl loop!")
-//     } else if (player=="princess") {
-//         console.log("In the princess loop!")
-//     }
-// }
-
-
 
 // Draw the player on the screen
 Player.prototype.render = function() {
@@ -113,7 +95,7 @@ Player.prototype.handleInput = function(key) {
 // Create instance of player
 var playerInitX = blkWidth * 2;
 var playerInitY = blkHeight * 5;
-var player = new Player(playerInitX,playerInitY,charImg);
+var player = new Player(playerInitX,playerInitY);
 
 // Create instances of enemies as an array. For the first level of the game,
 // start with a total of 6 enemies (2 on each of the 3 applicable lanes). The 
@@ -132,7 +114,6 @@ for (i = 0; i < nEnemies; i++) {
     var enemyY = (i % 3 + 1) * blkHeight;
     var enemySpeed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
     allEnemies[i] = new Enemy(enemyX,enemyY,enemySpeed);
-    console.log(enemyX);
 }
 
 // This listens for key presses and sends the keys to your
