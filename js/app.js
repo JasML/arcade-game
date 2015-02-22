@@ -88,13 +88,46 @@ Player.prototype.handleInput = function(key) {
     }
 }
 
+// Create a star Class 
+var Star = function(x,y,speed) {
+    // Set the image, speed, x, and y
+    this.sprite = 'images/Star.png';
+    this.speed = speed;
+    this.x = x;
+    this.y = y;
+}
+
+// Update the star's position. It will move back and forth across the water.
+Star.prototype.update = function(dt) {
+    // You should multiply any movement by the dt parameter
+    // which will ensure the game runs at the same speed for
+    // all computers.
+
+    // First check to see if the star is at either edge of the screen
+    if (this.x > blkWidth * 4 || this.x < 0) {
+        // Star is at on of the edges, so change the sign of its speed to negative
+        this.speed = -1 * this.speed;
+    } 
+    this.x = this.x + this.speed * dt;
+}
+
+// Draw the enemy on the screen, required method for game
+Star.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+}
+
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 // Place the player object in a variable called player
 
+// Create instance of rock
+var starInitX = 0;
+var starInitY = 0;
+var star = new Star(starInitX,starInitY,100);
+
 // Create instance of player
 var playerInitX = blkWidth * 2;
-var playerInitY = blkHeight * 5;
+var playerInitY = blkHeight * 4.75; 
 var player = new Player(playerInitX,playerInitY);
 
 // Create instances of enemies as an array. For the first level of the game,
@@ -111,7 +144,7 @@ var enemySpeedMin = 200;
 var enemySpeedMax = 400;
 for (i = 0; i < nEnemies; i++) {
     var enemyX = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
-    var enemyY = (i % 3 + 1) * blkHeight;
+    var enemyY = (i % 3 + 0.75) * blkHeight;
     var enemySpeed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
     allEnemies[i] = new Enemy(enemyX,enemyY,enemySpeed);
 }

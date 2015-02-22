@@ -95,6 +95,7 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+        star.update(dt);
     }
 
     /* This function initially draws the "game level", it will then call
@@ -153,6 +154,7 @@ var Engine = (function(global) {
         });
 
         player.render();
+        star.render();
     }
 
     function checkCollisions() {
@@ -185,6 +187,8 @@ var Engine = (function(global) {
         for (i = 0; i < nEnemies; i++) {
             allEnemies[i].x = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
         }
+
+        star.x = starInitX;
 
         renderEntities();
     }
