@@ -39,12 +39,14 @@ var Engine = (function(global) {
          * would be the same for everyone (regardless of how fast their
          * computer is) - hurray time!
          */
+
         var now = Date.now(),
             dt = (now - lastTime) / 1000.0;
 
         /* Call our update/render functions, pass along the time delta to
          * our update function since it may be used for smooth animation.
          */
+
         update(dt);
         render();
 
@@ -158,37 +160,44 @@ var Engine = (function(global) {
     }
 
     function checkCollisions() {
-        /* Find minimum X distance between player and enemy. If minimum distance is
-        small enough, consider it to be a collision. */
-        var minXDist = 0.8*blkWidth;
-        var minYDist = blkHeight;
+        /* Find minimum distance between player and enemy. If minimum distance is
+        small enough, consider it to be a collision and reset the game. */
+        var minXDist = 0.7*blkWidth;
+        var minYDist = 0.5*blkHeight;
 
         var xPlayer = player.x;
         var yPlayer = player.y;
         allEnemies.forEach(function(enemy) {
             if (Math.abs(xPlayer - enemy.x) < minXDist && Math.abs(yPlayer - enemy.y) < minYDist) {
+                alert("Bummer! You lost. Press OK to play again.");
                 reset();
             }
         });
+
+        /* Find minimum distance between player and star. If minimum distance is
+        small enough, consider it to be a win and reset the game. */
+        var xStar = star.x;
+        var yStar = star.y;
+        if (Math.abs(xPlayer - star.x) < minXDist && Math.abs(yPlayer - star.y) < minYDist) {
+            star.speed = 0;
+            star.x = starInitX;
+            alert("You won! Press OK to play again.");
+            reset();
+        }
+
     }
 
-    /* This function does nothing but it could have been a good place to
-     * handle game reset states - maybe a new game menu or a game over screen
-     * those sorts of things. It's only called once by the init() method.
-     */
+    /* The reset function resets the initial x and y positions of the player, the enemies, and the star */
     function reset() {
         player.x = playerInitX;
         player.y = playerInitY;
-
-        // for (i = 0; i < enemyInitX.length; i++) {
-        //     allEnemies[i].x = enemyInitX[i];
-        // }
 
         for (i = 0; i < nEnemies; i++) {
             allEnemies[i].x = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
         }
 
         star.x = starInitX;
+        star.speed = starInitSpd;
 
         renderEntities();
     }

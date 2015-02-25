@@ -2,20 +2,28 @@
 <html>
 <head>
     <title>Effective JavaScript: Frogger</title>
+    <meta charset="utf-8">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+	<script type="text/javascript">
+		/* Create a popup (alert) window to tell the player the basic goal of the game and to point them to the bottom of the screen for changing the player icon */
+		var initialAlert = 'Your goal is to reach the star at the top of the screen. ' +
+			'You can select a new player image at bottom of the screen at any time. ' +
+			'Press OK to play the game.';
+		alert(initialAlert);
+	</script>
     <script type="text/javascript">
-    	/* Set the width and height of the canvas */
+    	/* Define the width and height of the canvas */
 		var cWidth = 505;
 		var cHeight = 606;
-		
-		/* Set the width and height of the blocks making up the canvas */
+
+		/* Define the width and height of the blocks making up the canvas */
 		var blkWidth = 101;
 		var blkHeight = 83;
 
-		/* Set the number of columns and rows of individual blocks making up the canvas */
+		/* Define the number of columns and rows of individual blocks making up the canvas */
 		var nBlkRows = 6;
 		var nBlkCols = 5;
     </script>
@@ -29,7 +37,7 @@
     		<p> Select a Player Icon </p>
     	</div>
     	<div class="col-md-3">
-    		<select id="playerSelect" onChange="player.newPlayer();">
+    		<select id="player-select" onChange="player.newPlayer();">
     			<option value="cat">Cat</option>
   				<option value="boy">Boy</option>
   				<option value="horn-girl">Horn Girl</option>

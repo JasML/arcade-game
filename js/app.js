@@ -9,7 +9,7 @@ var Enemy = function(x,y,speed) {
     this.y = y;
     this.speed = speed;
     this.sprite = 'images/enemy-bug.png';
-}
+};
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -23,12 +23,12 @@ Enemy.prototype.update = function(dt) {
         this.x = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
         this.speed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
     }
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Now write your own player class
 // This class requires an update(), render() and
@@ -38,32 +38,32 @@ var Player = function(x,y) {
     this.sprite = 'images/char-cat-girl.png';
     this.x = x;
     this.y = y;
-}
+};
 
 Player.prototype.update = function(dt) {
-
-}
+    // Not currently used //
+};
 
 // Add function for changing the player image
 Player.prototype.newPlayer = function() {
-    var currentImg = document.getElementById("playerSelect").options[document.getElementById("playerSelect").selectedIndex].value;
-    if (currentImg=="boy") {
+    var currentImg = document.getElementById('player-select').options[document.getElementById('player-select').selectedIndex].value;
+    if (currentImg=='boy') {
         this.sprite = 'images/char-boy.png';
-    } else if (currentImg=="cat") {
+    } else if (currentImg=='cat') {
         this.sprite = 'images/char-cat-girl.png';
-    } else if (currentImg=="horn-girl") {
+    } else if (currentImg=='horn-girl') {
         this.sprite = 'images/char-horn-girl.png';
-    } else if (currentImg=="pink-girl") {
+    } else if (currentImg=='pink-girl') {
         this.sprite = 'images/char-pink-girl.png';
-    } else if (currentImg=="princess") {
+    } else if (currentImg=='princess') {
         this.sprite = 'images/char-princess-girl.png';
     }
-}
+};
 
 // Draw the player on the screen
 Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 Player.prototype.handleInput = function(key) {
     // Update either x or y position of player per keypad input, with limits
@@ -86,16 +86,16 @@ Player.prototype.handleInput = function(key) {
             this.x = this.x + blkWidth;
         }
     }
-}
+};
 
-// Create a star Class 
+// Create a star Class
 var Star = function(x,y,speed) {
     // Set the image, speed, x, and y
     this.sprite = 'images/Star.png';
     this.speed = speed;
     this.x = x;
     this.y = y;
-}
+};
 
 // Update the star's position. It will move back and forth across the water.
 Star.prototype.update = function(dt) {
@@ -104,17 +104,20 @@ Star.prototype.update = function(dt) {
     // all computers.
 
     // First check to see if the star is at either edge of the screen
-    if (this.x > blkWidth * 4 || this.x < 0) {
+    if (this.x > blkWidth * 4 && this.speed > 0) {
+        this.speed = -1 * this.speed;
+    }
+    if (this.x < 0 && this.speed < 0) {
         // Star is at on of the edges, so change the sign of its speed to negative
         this.speed = -1 * this.speed;
-    } 
+    }
     this.x = this.x + this.speed * dt;
-}
+};
 
 // Draw the enemy on the screen, required method for game
 Star.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
-}
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
@@ -123,16 +126,18 @@ Star.prototype.render = function() {
 // Create instance of rock
 var starInitX = 0;
 var starInitY = 0;
-var star = new Star(starInitX,starInitY,100);
+var starInitSpd = 100;
+console.log(starInitSpd);
+var star = new Star(starInitX,starInitY,starInitSpd);
 
 // Create instance of player
 var playerInitX = blkWidth * 2;
-var playerInitY = blkHeight * 4.75; 
+var playerInitY = blkHeight * 5;
 var player = new Player(playerInitX,playerInitY);
 
 // Create instances of enemies as an array. For the first level of the game,
-// start with a total of 6 enemies (2 on each of the 3 applicable lanes). The 
-// initial x-position of each enemy is determined randomly between 1 and 9 
+// start with a total of 6 enemies (2 on each of the 3 applicable lanes). The
+// initial x-position of each enemy is determined randomly between 1 and 9
 // block-widths to the left of the screen (the value of 9 was determined by
 // testing various values and finding a value that resulted in reasonably smooth
 // movement across the screen (instead of disctint clumps of enemies)
@@ -144,7 +149,7 @@ var enemySpeedMin = 200;
 var enemySpeedMax = 400;
 for (i = 0; i < nEnemies; i++) {
     var enemyX = Math.random() * (enemyInitXmax - enemyInitXmin) + enemyInitXmin;
-    var enemyY = (i % 3 + 0.75) * blkHeight;
+    var enemyY = (i % 3 + 1) * blkHeight;
     var enemySpeed = Math.random() * (enemySpeedMax - enemySpeedMin) + enemySpeedMin;
     allEnemies[i] = new Enemy(enemyX,enemyY,enemySpeed);
 }
