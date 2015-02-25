@@ -69,22 +69,14 @@ Player.prototype.handleInput = function(key) {
     // Update either x or y position of player per keypad input, with limits
     // so that player does not disappear from the canvas.  If movement results
     // in a discrete movement of a single block, so the dt is not used.
-    if (key == 'up') {
-        if (this.y > 0) {
-            this.y = this.y - blkHeight;
-        }
-    } else if (key == 'down') {
-        if (this.y < blkHeight * 5) {
-            this.y = this.y + blkHeight;
-        }
-    } else if (key == 'left') {
-        if (this.x > 0) {
-            this.x = this.x - blkWidth;
-        }
-    } else if (key == 'right') {
-        if (this.x < blkWidth * 4) {
-            this.x = this.x + blkWidth;
-        }
+    if (key == 'up' && this.y > 0) {
+        this.y = this.y - blkHeight;
+    } else if (key == 'down' && this.y < blkHeight * 5) {
+        this.y = this.y + blkHeight;
+    } else if (key == 'left' && this.x > 0) {
+        this.x = this.x - blkWidth;
+    } else if (key == 'right' && this.x < blkWidth * 4) {
+        this.x = this.x + blkWidth;
     }
 };
 
